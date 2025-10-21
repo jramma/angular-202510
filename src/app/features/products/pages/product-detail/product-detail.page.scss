@@ -1,71 +1,23 @@
 @import "../../../../../styles/variables";
+
 $detail-max-width: 1000px;
 $error-icon-size: 64px;
-.detail-container {
-  padding: $spacing-lg;
+.datail-container {
   max-width: $detail-max-width;
   margin: 0 auto;
+  padding: $spacing-xl;
 }
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: $spacing-xxl $spacing-xl;
-  gap: $spacing-lg;
-  p {
-    margin: 0;
-    font-size: $font-size-xl;
-    opacity: 0.8;
-  }
-}
+
+.loading-container,
 .error-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   padding: $spacing-xxl $spacing-xl;
   gap: $spacing-lg;
-  text-align: center;
-  .error-icon {
-    font-size: $error-icon-size;
-    width: $error-icon-size;
-    height: $error-icon-size;
-  }
-  h2 {
-    margin: 0;
-    font-size: $font-size-xxl;
-    font-weight: 500;
-  }
-  p {
-    margin: 0;
-    font-size: $font-size-lg;
-    opacity: 0.8;
-  }
-  .error-actions {
-    display: flex;
-    gap: $spacing-md;
-    margin-top: $spacing-xl;
-    flex-wrap: wrap;
-    justify-content: center;
-    button {
-      display: flex;
-      align-items: center;
-      gap: $spacing-sm;
-      min-width: 160px;
-      justify-content: center;
-      padding: $spacing-sm $spacing-lg;
-      mat-icon.spinning {
-        animation: spin 1s linear infinite;
-      }
-    }
-    @media (max-width: 480px) {
-      flex-direction: column;
-      width: 100%;
-      button {
-        width: 100%;
-      }
-    }
-  }
 }
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -74,14 +26,15 @@ $error-icon-size: 64px;
     transform: rotate(360deg);
   }
 }
+
 .product-detail-card {
   .product-title {
-    margin: 0;
+    margin: 0 0 $spacing-md 0;
     font-size: $font-size-xxxl;
     font-weight: 400;
     line-height: 1.2;
-    letter-spacing: -0.025em;
   }
+
   .product-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -92,52 +45,17 @@ $error-icon-size: 64px;
       gap: $spacing-xl;
     }
   }
-  .product-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    .product-image {
-      width: 100%;
-      max-width: 500px;
-      height: auto;
-      object-fit: cover;
-      border-radius: $border-radius-lg;
-      box-shadow: $shadow-lg;
-      transition: transform 0.3s ease;
-      &:hover {
-        transform: scale(1.02);
-      }
-    }
+
+  .product-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-lg;
+    object-fit: cover;
   }
+
   .product-info {
-    .product-meta {
-      display: flex;
-      flex-direction: column;
-      gap: $spacing-lg;
-      margin-bottom: $spacing-xl;
-    }
-    .rating-section {
-      display: flex;
-      align-items: center;
-      gap: $spacing-sm;
-    }
-    .rating-stars {
-      display: flex;
-      gap: $spacing-xs;
-      .star-icon {
-        font-size: 24px;
-        color: #e0e0e0;
-        transition: color 0.2s ease;
-        &.filled {
-          color: #ffc107;
-        }
-      }
-    }
-    .rating-value {
-      font-weight: 500;
-      font-size: $font-size-lg;
-      opacity: 0.8;
-    }
     .price-section {
       display: flex;
       justify-content: space-between;
@@ -145,43 +63,23 @@ $error-icon-size: 64px;
       padding: $spacing-lg 0;
       border-top: 1px solid #f0f0f0;
       border-bottom: 1px solid #f0f0f0;
-      .price-label {
-        font-size: $font-size-xl;
-        opacity: 0.8;
-      }
-      .price-value {
-        font-size: $font-size-xxxl;
-        font-weight: 600;
-        letter-spacing: -0.025em;
-      }
     }
+
     .description-section {
       margin-top: $spacing-xl;
       h3 {
         margin: 0 0 $spacing-md 0;
-        font-size: $font-size-xxl;
-        font-weight: 500;
-        letter-spacing: -0.025em;
       }
       .product-description {
         margin: 0;
-        line-height: 1.7;
-        font-size: $font-size-lg;
-        opacity: 0.9;
+        line-height: 1.6;
       }
     }
   }
+
   mat-card-actions {
     padding: $spacing-lg;
     display: flex;
-    justify-content: flex-start;
     gap: $spacing-md;
-    button {
-      display: flex;
-      align-items: center;
-      gap: $spacing-sm;
-      padding: $spacing-sm $spacing-lg;
-      font-weight: 500;
-    }
   }
 }
