@@ -6,28 +6,28 @@ Una aplicación de catálogo de productos desarrollada con Angular 17, que permi
 
 ```mkd
 src/app/
-├── core/                           # Solo servicios/core globales
-│   └── services/                   # (vacía, lista para servicios globales)
-├── shared/                         # Componentes/pipes reutilizables
-│   └── pipes/
-│       └── price-format.pipe.ts
+├── core/ # Solo servicios/core globales
+│ └── services/ # (vacía, lista para servicios globales)
+├── shared/ # Componentes/pipes reutilizables
+│ └── pipes/
+│ └── price-format.pipe.ts
 ├── features/
-│   └── products/
-│       ├── components/            
-│       ├── pages/                  # Páginas de productos
-│       │   ├── product-detail/
-│       │   └── product-table/
-│       ├── services/               # ✅ Servicios específicos de productos
-│       │   └── products.service.ts
-│       ├── models/                 # Modelos de productos
-│       │   └── product.model.ts
-│       └── interfaces/             # ✅ Interfaces específicas de productos
-│           └── products.service.interface.ts
-└── pages/                          # ✅ Páginas globales
-    └── not-found/                  # ✅ Página 404 global
-        ├── not-found.page.html
-        ├── not-found.page.scss
-        └── not-found.page.ts
+│ └── products/
+│ ├── components/  
+│ ├── pages/ # Páginas de productos
+│ │ ├── product-detail/
+│ │ └── product-table/
+│ ├── services/ # ✅ Servicios específicos de productos
+│ │ └── products.service.ts
+│ ├── models/ # Modelos de productos
+│ │ └── product.model.ts
+│ └── interfaces/ # ✅ Interfaces específicas de productos
+│ └── products.service.interface.ts
+└── pages/ # ✅ Páginas globales
+└── not-found/ # ✅ Página 404 global
+├── not-found.page.html
+├── not-found.page.scss
+└── not-found.page.ts
 ```
 
 ## Comandos
@@ -67,6 +67,9 @@ bun start
 - **Caching**: Implementar estrategias de cache para la API
 - **PWA**: Convertir en Progressive Web App
 - **Style**: Mejorar y personalizar estilos tal vez con librería como tailwind.
+- **Price formatting**: Implementar un `price-format.pipe` configurable que permita cambiar la moneda, el locale y la precisión (decimales). Configuración para soportar dinamismo (parámetros del pipe, token de inyección o señal) y facilitar pruebas y localización.
+- **Tabla de productos mejorada**: Crear una tabla más potente con filtros avanzados (por categoría, rango de precio, disponibilidad), búsquedas avanzadas (filtro por múltiples campos, búsqueda por frase, fuzzy search), paginación y ordenamiento. Mejorar el responsive adaptando la vista en móvil (cards o columnas colapsables) y añadir accesibilidad. Opciones de implementación: `@angular/cdk`/`MatTable` + `MatPaginator`/`MatSort`, o usar `AG Grid` para features ricas; usar un `DataSource` reactivo (señales/Observables) para combinar filtros y debounce; añadir tests y benchmarks de rendimiento. Ejemplo de posible tabla: [https://template-dashboard.angular-material.dev/details](https://template-dashboard.angular-material.dev/details)
 
 ## Deploy
+
 [https://angular-202510.netlify.app/](https://angular-202510.netlify.app/)
