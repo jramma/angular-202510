@@ -5,22 +5,29 @@ Una aplicación de catálogo de productos desarrollada con Angular 17, que permi
 ## 📁 Estructura del Proyecto
 
 ```mkd
-src/
-├── app/
-│ ├── core/
-│ │ └── services/
-│ │ └── products.service.ts # Servicio para API
-│ ├── features/
-│ │ └── products/
-│ │ ├── models/
-│ │ │ └── product.model.ts # Interface del producto
-│ │ └── pages/
-│ │ ├── products-table.page.ts # Lista de productos
-│ │ └── product-detail.page.ts # Detalle del producto
-│ └── shared/
-│ ├── pipes/
-│ │ └── price-format.pipe.ts # Pipe para formateo de precios
-│ └── not-found.page.ts # Página 404
+src/app/
+├── core/                           # Solo servicios/core globales
+│   └── services/                   # (vacía, lista para servicios globales)
+├── shared/                         # Componentes/pipes reutilizables
+│   └── pipes/
+│       └── price-format.pipe.ts
+├── features/
+│   └── products/
+│       ├── components/            
+│       ├── pages/                  # Páginas de productos
+│       │   ├── product-detail/
+│       │   └── product-table/
+│       ├── services/               # ✅ Servicios específicos de productos
+│       │   └── products.service.ts
+│       ├── models/                 # Modelos de productos
+│       │   └── product.model.ts
+│       └── interfaces/             # ✅ Interfaces específicas de productos
+│           └── products.service.interface.ts
+└── pages/                          # ✅ Páginas globales
+    └── not-found/                  # ✅ Página 404 global
+        ├── not-found.page.html
+        ├── not-found.page.scss
+        └── not-found.page.ts
 ```
 
 ## Comandos

@@ -10,9 +10,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { ProductsService } from '../../../core/services/products.service';
-import { Product } from '../models/product.model';
-import { PriceFormatPipe } from '../../../shared/pipes/price-format.pipe';
+import { ProductsService } from '../../services/products.service';
+import { Product } from '../../models/product.model';
+import { PriceFormatPipe } from '../../../../shared/pipes/price-format.pipe';
 
 // Interfaces para mejor tipado
 interface LoadingState {

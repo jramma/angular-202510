@@ -2,17 +2,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Product } from '../../features/products/models/product.model';
-export interface Paged<T> {
-  items: T[];
-  total: number;
-  page: number;
-  pageSize: number;
-}
+import { Product } from '../models/product.model';
+import { IProductsService, Paged, ProductsListOptions } from '../interfaces/products.service.interface';
+
 @Injectable({ providedIn: 'root' })
-export class ProductsService {
+export class ProductsService implements IProductsService {
   private http = inject(HttpClient);
   private base = 'https://dummyjson.com/products';
+
   private toProduct(dto: any): Product {
     return {
       id: dto.id,
@@ -24,11 +21,8 @@ export class ProductsService {
       description: dto.description,
     };
   }
-  list(opts: {
-    q?: string;
-    page?: number;
-    pageSize?: number;
-  }): Observable<Paged<Product>> {
+
+  list(opts: ProductsListOptions): Observable<Paged<Product>> {
     let params = new HttpParams()
       .set('limit', (opts.pageSize || 10).toString())
       .set('skip', ((opts.page || 1) - 1) * (opts.pageSize || 10));
@@ -54,4 +48,3 @@ export class ProductsService {
       .pipe(map((dto) => this.toProduct(dto)));
   }
 }
-// TODO add messages

@@ -12,8 +12,9 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
-import { ProductsService, Paged } from '../../../core/services/products.service';
-import { Product } from '../models/product.model';
+import { ProductsService } from '../../services/products.service';
+import { Paged } from '../../interfaces/products.service.interface';
+import { Product } from '../../models/product.model';
 
 @Component({
   standalone: true,
@@ -97,7 +98,7 @@ export class ProductsTablePage implements OnInit {
         this.totalItems.set(response.total);
         this.loading.set(false);
       },
-      error: (err) => {
+      error: (err: any) => {
         this.error.set('Error al cargar los productos');
         this.loading.set(false);
         console.error('Error loading products:', err);
