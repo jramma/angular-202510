@@ -9,6 +9,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'Catàleg';
-  productes = 'Productes';
+  title = 'Catálogo';
+  productes = 'Productos';
 }

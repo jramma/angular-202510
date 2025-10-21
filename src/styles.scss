@@ -1,33 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
-/* Include the common styles for Angular Material */
+// Habilita el núcleo de Material (requerido)
 @include mat.core();
 
-/* Define the palettes for your theme using the Material Design palettes available in palette.scss */
-$catalog-app-primary: mat.define-palette(mat.$blue-palette);
-$catalog-app-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
-$catalog-app-warn: mat.define-palette(mat.$red-palette);
-
-/* Create the theme object */
-$catalog-app-theme: mat.define-light-theme((
+// Define un tema de Material (puedes cambiar los colores si quieres)
+$theme: mat.define-light-theme((
   color: (
-    primary: $catalog-app-primary,
-    accent: $catalog-app-accent,
-    warn: $catalog-app-warn,
-  )
+    primary: mat.define-palette(mat.$indigo-palette),
+    accent: mat.define-palette(mat.$pink-palette),
+    warn: mat.define-palette(mat.$red-palette),
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
 ));
 
-/* Include theme styles for core and each component used in your app */
-@include mat.all-component-themes($catalog-app-theme);
-
-/* Global styles */
-:root{ --container:1080px }
-*{ box-sizing:border-box }
-body{
-  margin:0;
-  font-family: 'Roboto', system-ui, Arial;
-  background-color: #fafafa;
+// Aplica el tema globalmente
+@include mat.all-component-themes($theme);
+* {
+  box-sizing: border-box;
 }
 
-.container{ max-width:var(--container); margin:0 auto; padding:1rem }
+body {
+  margin: 0;
+  font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  background: #fafafa;
+  color: #212121;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}

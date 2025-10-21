@@ -105,11 +105,12 @@
         <!-- Paginación -->
         <mat-paginator
           [length]="totalItems()"
-          [pageSize]="pageSize()"
-          [pageIndex]="currentPage() - 1"
-          [pageSizeOptions]="[5, 10, 25, 50]"
+          [pageSize]="pageSize"
+          [pageIndex]="currentPage - 1"
+          [pageSizeOptions]="pageSizeOptions"
           (page)="onPageChange($event)"
           showFirstLastButtons
+          hidePageSize="false"
         >
         </mat-paginator>
       </div>

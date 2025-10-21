@@ -45,8 +45,9 @@ export class ProductsTablePage implements OnInit {
 
   // Paginación
   totalItems = signal(0);
-  pageSize = signal(10);
-  currentPage = signal(1);
+  pageSize = 10;
+  currentPage = 1;
+  pageSizeOptions = [5, 10, 25, 50];
 
   // Búsqueda
   private searchSubject = new Subject<string>();
@@ -62,7 +63,7 @@ export class ProductsTablePage implements OnInit {
       )
       .subscribe(query => {
         this.searchQuery.set(query);
-        this.currentPage.set(1);
+        this.currentPage = 1;
         this.loadProducts();
       });
   }
@@ -73,8 +74,8 @@ export class ProductsTablePage implements OnInit {
   }
 
   onPageChange(event: PageEvent) {
-    this.currentPage.set(event.pageIndex + 1);
-    this.pageSize.set(event.pageSize);
+    this.currentPage = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
     this.loadProducts();
   }
 
@@ -88,8 +89,8 @@ export class ProductsTablePage implements OnInit {
 
     this.productsService.list({
       q: this.searchQuery() || undefined,
-      page: this.currentPage(),
-      pageSize: this.pageSize()
+      page: this.currentPage,
+      pageSize: this.pageSize
     }).subscribe({
       next: (response: Paged<Product>) => {
         this.dataSource = response.items;
