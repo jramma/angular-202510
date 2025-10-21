@@ -105,3 +105,4 @@ export class ProductsTablePage implements OnInit {
     });
   }
 }
+/** TODO: crear componente standalone y construir tabla con Angular Material */

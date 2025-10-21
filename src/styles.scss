@@ -4,15 +4,17 @@
 @include mat.core();
 
 // Define un tema de Material (puedes cambiar los colores si quieres)
-$theme: mat.define-light-theme((
-  color: (
-    primary: mat.define-palette(mat.$indigo-palette),
-    accent: mat.define-palette(mat.$pink-palette),
-    warn: mat.define-palette(mat.$red-palette),
-  ),
-  typography: mat.define-typography-config(),
-  density: 0
-));
+$theme: mat.define-light-theme(
+  (
+    color: (
+      primary: mat.define-palette(mat.$indigo-palette),
+      accent: mat.define-palette(mat.$pink-palette),
+      warn: mat.define-palette(mat.$red-palette),
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
 
 // Aplica el tema globalmente
 @include mat.all-component-themes($theme);
@@ -33,3 +35,4 @@ body {
   margin: 0 auto;
   padding: 2rem;
 }
+

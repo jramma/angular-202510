@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+/** TODO: añadir rutas /products, /products/:id, 404 y redirect */
 export const routes: Routes = [
   { path: '', redirectTo: '/products', pathMatch: 'full' },
   {

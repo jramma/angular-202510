@@ -106,3 +106,4 @@ export class ProductDetailPage implements OnInit {
     img.alt = 'Imagen no disponible';
   }
 }
+// TODO added fetch

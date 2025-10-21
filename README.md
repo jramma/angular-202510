@@ -1,139 +1,62 @@
-# Prueba Técnica — Angular 17 — Catálogo (Tabla desde cero + Detalle con fixes)
+# Catálogo de Productos - Angular App
 
-## Objetivo
+Una aplicación de catálogo de productos desarrollada con Angular 17, que permite visualizar, buscar y navegar por productos utilizando la API de DummyJSON.
 
-Construir una mini‑SPA en Angular 17 con:
+## 📁 Estructura del Proyecto
 
-- Página principal en **tabla** (desde cero).
-- Pantalla de **detalle** (casi hecha) con pequeños ajustes.
-- Rutas básicas y 404.
-
-La API a consumir es pública (DummyJSON).
-
----
-
-## Requisitos
-
-- **Node LTS** (18+ recomendado).
-- Angular 17 en el proyecto donde integres este `src/`.
-- NPM o PNPM/Yarn.
-
-## Estructura entregada (resumen)
-
-```
+```mkd
 src/
-  index.html
-  styles.scss
-  main.ts
-  app/
-    app.component.ts                 // Shell mínimo con <router-outlet>
-    app.routes.ts                    // INCOMPLETO -> el candidato lo termina
-    shared/
-      not-found.page.ts              // 404 básica
-    core/
-      services/
-        products.service.ts          // Esqueleto con TODOs (list/detail + mapping)
-    features/
-      products/
-        models/
-          product.model.ts           // Modelo local
-        pages/
-          products-table.page.ts     // VACÍO (HTML/SCSS/TS a crear)
-          products-table.page.html   // VACÍO
-          products-table.page.scss   // VACÍO
-          product-detail.page.ts     // Semi-hecho, con TODOs
-          product-detail.page.html   // Semi-hecho, con TODOs
-          product-detail.page.scss   // Con un bug de clase intencional
+├── app/
+│ ├── core/
+│ │ └── services/
+│ │ └── products.service.ts # Servicio para API
+│ ├── features/
+│ │ └── products/
+│ │ ├── models/
+│ │ │ └── product.model.ts # Interface del producto
+│ │ └── pages/
+│ │ ├── products-table.page.ts # Lista de productos
+│ │ └── product-detail.page.ts # Detalle del producto
+│ └── shared/
+│ ├── pipes/
+│ │ └── price-format.pipe.ts # Pipe para formateo de precios
+│ └── not-found.page.ts # Página 404
 ```
 
----
-
-## API pública (DummyJSON)
-
-- **Listado**: `GET https://dummyjson.com/products?limit=<n>&skip=<n>`
-- **Búsqueda**: `GET https://dummyjson.com/products/search?q=<texto>&limit=<n>&skip=<n>`
-- **Detalle**: `GET https://dummyjson.com/products/<id>`
-- **Modelo local `Product`**:
-
-  ```ts
-  interface Product {
-    id: number;
-    name: string;
-    category: string;
-    price: number;
-    rating: number;
-    thumbnailUrl: string;
-    description: string;
-  }
-  ```
-
----
-
-## Tareas del candidato
-
-### 1) Tabla desde cero (`products-table.page.*`)
-
-- Crear **componente standalone** (TS/HTML/SCSS).
-- Mostrar columnas: **ID, Nombre, Categoría, Precio, Rating**.
-- Filas clicables → navegación a **/products/:id**.
-- Búsqueda opcional (por nombre/categoría).
-- **Paginación** correcta contra la API usando `limit/skip` (**Anterior** / **Siguiente**).
-- Se valora que uses componentes de UI (p. ej., Angular Material para `mat-table`, inputs, botones, iconos), pero **no** imponemos cómo instalarlo.
-
-### 2) Rutas (`app.routes.ts`)
-
-Completar:
-
-- `''` → **redirect** a `products`.
-- `'products'` → **tabla**.
-- `'products/:id'` → **detalle**.
-- `**` → **NotFoundPage** (404).
-
-### 3) Servicio (`products.service.ts`)
-
-- Implementar:
-  - `list({ q?, page?, pageSize? })` → llamada real con `limit/skip`.
-  - `detail(id)` → llamada real.
-- Adaptar el DTO remoto al modelo `Product` (p. ej., `title → name`, `thumbnail → thumbnailUrl`).
-
-### 4) Detalle (ficheros `product-detail.page.*`)
-
-- Corregir **alt** y `loading="lazy"` en la imagen.
-- Dar **focus** al título al cargar (accesibilidad).
-- Mostrar **precio** con `currency`.
-- Añadir **botón “Reintentar”** si hay error.
-- Arreglar un **bug de SCSS** intencional (clase mal escrita).
-
----
-
-## Criterios de aceptación
-
-- La **tabla** lista datos reales desde la API y **pagina** correctamente.
-- Cada **fila** navega a un **detalle funcional**.
-- El **detalle** corrige los TODOs, muestra contenido y maneja errores.
-- Las **rutas** funcionan (redirect `/`, `/products`, `/products/:id`, 404).
-- Código claro, tipado correcto y buen uso de Angular 17 (standalone, señales si las empleas, etc.).
-
----
-
-## Cómo ejecutar (una vez integrado)
+## Comandos
 
 ```bash
-npm install
-npm start
-# abrir http://localhost:4200/
+# Instalar dependencias
+bun install
+
+# Servidor de desarrollo
+bun start
+
 ```
 
-- Ruta de lista: `http://localhost:4200/products`
-- Ruta de detalle: `http://localhost:4200/products/1` (por ejemplo)
+## Decisiones de Arquitectura
 
----
+- **Angular Material**: Elegido por su documentación clara y componentes robustos, en lugar de Tailwind CSS para mayor velocidad de desarrollo
+- **Bun**: Package manager más rápido y cómodo que npm
+- **Standalone Components**: Arquitectura moderna de Angular 17
+- **Signals**: Para manejo reactivo del estado local
+- **Lazy Loading**: Carga diferida de componentes para optimizar rendimiento
 
-## Entregables recomendados
+## Mejores Prácticas Aplicadas
 
-- Código fuente (tu repo o ZIP).
-- Notas/breve README explicando:
-  - Decisiones de arquitectura/estado.
-  - Mejores prácticas aplicadas.
-  - Posibles mejoras/extra (accesibilidad, testing, loading states, etc.).
-# angular-202510
+- **Clean Code** con comentarios descriptivos
+- **Separación de responsabilidades** (servicios, modelos, componentes)
+- **Manejo de errores** con estados de loading y error
+- **Debounce** en búsquedas para optimizar rendimiento
+- **Tipado fuerte** con TypeScript
+- **Arquitectura modular** por features
+
+## Posibles Mejoras
+
+- **SEO**: Actualmente 80/100 en Lighthouse - se puede mejorar con meta tags y structured data
+- **Testing**: Implementar tests unitarios y e2e
+- **Accesibilidad**: Mejorar ARIA labels y navegación por teclado
+- **Loading States**: Skeleton loaders más sofisticados
+- **Caching**: Implementar estrategias de cache para la API
+- **PWA**: Convertir en Progressive Web App
+- **Style**: Mejorar y personalizar estilos tal vez con librería como tailwind.
