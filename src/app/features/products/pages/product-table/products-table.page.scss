@@ -53,6 +53,7 @@ mat-card-title {
   &:hover {
     transform: translateY(-1px);
     box-shadow: $shadow-md;
+    background-color: #e0e0e073;
   }
 }
 .product-info {
