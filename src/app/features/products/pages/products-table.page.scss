@@ -1,163 +1,129 @@
+@import "../../../../styles/variables";
+$container-max-width: 1200px;
+$search-field-max-width: 500px;
+.products-container,
+mat-card {
+  max-width: $container-max-width;
+}
 .products-container {
-  padding: 1.5rem;
-  max-width: 1200px;
+  padding: $spacing-lg;
   margin: 0 auto;
 }
 mat-card {
   width: 100%;
-  max-width: 1200px;
 }
-
 mat-card-title {
-  font-size: 1.8rem;
+  font-size: $font-size-xxl;
   font-weight: 500;
-  margin-bottom: 1rem;
+  margin-bottom: $spacing-md;
 }
 .search-container {
-  margin-bottom: 2rem;
-
+  margin-bottom: $spacing-xl;
   .search-field {
     width: 100%;
-    max-width: 500px;
+    max-width: $search-field-max-width;
   }
 }
-
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 3rem 2rem;
-  gap: 1.5rem;
-
-  p {
-    margin: 0;
-    font-size: 1.1rem;
-    opacity: 0.8;
-  }
-}
-
+.loading-container,
 .error-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem 2rem;
-  gap: 1.5rem;
-  text-align: center;
-
+  padding: $spacing-xxl $spacing-xl;
+  gap: $spacing-lg;
   p {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: $font-size-lg;
   }
 }
-
-.table-container {
-  .products-table {
-    width: 100%;
-    border-radius: 8px;
-    overflow: hidden;
-
-    .product-row {
-      cursor: pointer;
-      transition: all 0.2s ease;
-
-      &:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-    }
-
-    .name-cell {
-      .product-info {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.5rem 0;
-
-        .product-thumbnail {
-          width: 48px;
-          height: 48px;
-          object-fit: cover;
-          border-radius: 8px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        span {
-          font-weight: 500;
-          line-height: 1.4;
-        }
-      }
-    }
-
-    .category-badge {
-      padding: 0.5rem 1rem;
-      border-radius: 16px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.025em;
-    }
-
-    .price-cell {
-      font-weight: 600;
-      font-size: 1.1rem;
-    }
-
-    .rating-cell {
-      .rating-display {
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
-
-        .star-icon {
-          font-size: 18px;
-          color: #ddd;
-          transition: color 0.2s ease;
-
-          &.filled {
-            color: #ffc107;
-          }
-        }
-
-        .rating-value {
-          margin-left: 0.75rem;
-          font-size: 0.9rem;
-          font-weight: 500;
-          opacity: 0.8;
-        }
-      }
-    }
+.loading-container p {
+  opacity: 0.8;
+}
+.error-container {
+  text-align: center;
+}
+.table-container .products-table {
+  width: 100%;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+}
+.product-row {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: $shadow-md;
   }
 }
-
-// Estilos para el paginador
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm 0;
+  .product-thumbnail {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: $border-radius-md;
+    box-shadow: $shadow-sm;
+  }
+  span {
+    font-weight: 500;
+    line-height: 1.4;
+  }
+}
+.category-badge {
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-xl;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+.price-cell {
+  font-weight: 600;
+  font-size: $font-size-lg;
+}
+.rating-display {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  .star-icon {
+    font-size: 18px;
+    color: #e0e0e0;
+    transition: color 0.2s ease;
+    &.filled {
+      color: #ffc107;
+    }
+  }
+  .rating-value {
+    margin-left: $spacing-sm;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    opacity: 0.8;
+  }
+}
 mat-paginator {
-  margin-top: 1rem;
+  margin-top: $spacing-md;
   border-top: 1px solid #e0e0e0;
-  padding-top: 1rem;
-
+  padding-top: $spacing-md;
   .mat-mdc-paginator-page-size {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: $spacing-sm;
   }
-
   .mat-mdc-paginator-page-size-select {
     min-width: 60px;
   }
 }
-
-// Responsive design
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-md) {
   .products-container {
-    padding: 1rem;
+    padding: $spacing-md;
   }
-
   .table-container {
     overflow-x: auto;
-
     .products-table {
       min-width: 700px;
     }
   }
 }
-// TODO added styles
