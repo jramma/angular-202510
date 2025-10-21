@@ -67,3 +67,6 @@ bun start
 - **Caching**: Implementar estrategias de cache para la API
 - **PWA**: Convertir en Progressive Web App
 - **Style**: Mejorar y personalizar estilos tal vez con librería como tailwind.
+
+## Deploy
+[https://angular-202510.netlify.app/](https://angular-202510.netlify.app/)
