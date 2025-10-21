@@ -1,0 +1,26 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+
+  h1 {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+
+  .app-nav {
+    margin-left: auto;
+
+    a {
+      text-decoration: none;
+      padding: .25rem .5rem;
+      border-radius: .5rem;
+
+      &:hover {
+        background: #f5f5f5;
+      }
+    }
+  }
+}

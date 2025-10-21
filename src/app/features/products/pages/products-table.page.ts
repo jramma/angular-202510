@@ -1,0 +1,106 @@
+import { Component, OnInit, signal, computed, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+
+import { ProductsService, Paged } from '../../../core/services/products.service';
+import { Product } from '../models/product.model';
+
+@Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    FormsModule
+  ],
+  templateUrl: './products-table.page.html',
+  styleUrls: ['./products-table.page.scss']
+})
+export class ProductsTablePage implements OnInit {
+  private productsService = inject(ProductsService);
+  private router = inject(Router);
+
+  displayedColumns: string[] = ['id', 'name', 'category', 'price', 'rating'];
+  dataSource: Product[] = [];
+
+  loading = signal(false);
+  error = signal<string | null>(null);
+  searchQuery = signal('');
+
+  // Paginación
+  totalItems = signal(0);
+  pageSize = signal(10);
+  currentPage = signal(1);
+
+  // Búsqueda
+  private searchSubject = new Subject<string>();
+
+  ngOnInit() {
+    this.loadProducts();
+
+    // Configurar búsqueda con debounce
+    this.searchSubject
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged()
+      )
+      .subscribe(query => {
+        this.searchQuery.set(query);
+        this.currentPage.set(1);
+        this.loadProducts();
+      });
+  }
+
+  onSearchChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.searchSubject.next(target.value);
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage.set(event.pageIndex + 1);
+    this.pageSize.set(event.pageSize);
+    this.loadProducts();
+  }
+
+  onRowClick(product: Product) {
+    this.router.navigate(['/products', product.id]);
+  }
+
+  loadProducts() {
+    this.loading.set(true);
+    this.error.set(null);
+
+    this.productsService.list({
+      q: this.searchQuery() || undefined,
+      page: this.currentPage(),
+      pageSize: this.pageSize()
+    }).subscribe({
+      next: (response: Paged<Product>) => {
+        this.dataSource = response.items;
+        this.totalItems.set(response.total);
+        this.loading.set(false);
+      },
+      error: (err) => {
+        this.error.set('Error al cargar los productos');
+        this.loading.set(false);
+        console.error('Error loading products:', err);
+      }
+    });
+  }
+}
