@@ -1,24 +1,46 @@
 <div class="detail-container">
   <!-- Indicador de carga -->
-  <div *ngIf="loading()" class="loading-container" role="status" aria-live="polite">
+  <div
+    *ngIf="loading()"
+    class="loading-container"
+    role="status"
+    aria-live="polite"
+  >
     <mat-spinner diameter="60" aria-label="Cargando producto"></mat-spinner>
     <p>Cargando producto...</p>
   </div>
 
   <!-- Mensaje de error -->
-  <div *ngIf="error()" class="error-container" role="alert" aria-live="assertive">
-    <mat-icon color="warn" class="error-icon" aria-hidden="true">error</mat-icon>
+  <div
+    *ngIf="error()"
+    class="error-container"
+    role="alert"
+    aria-live="assertive"
+  >
+    <mat-icon color="warn" class="error-icon" aria-hidden="true"
+      >error</mat-icon
+    >
     <h2>Error al cargar el producto</h2>
     <p>{{ error() }}</p>
     <div class="error-actions">
-      <button mat-raised-button color="primary" (click)="onRetry()"
-              [disabled]="loading()"
-              aria-label="Reintentar carga del producto">
-        <mat-icon aria-hidden="true" [class.spinning]="loading()">refresh</mat-icon>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onRetry()"
+        [disabled]="loading()"
+        aria-label="Reintentar carga del producto"
+      >
+        <mat-icon aria-hidden="true" [class.spinning]="loading()"
+          >refresh</mat-icon
+        >
         {{ loading() ? 'Reintentando...' : 'Reintentar' }}
       </button>
-      <button mat-stroked-button color="primary" routerLink="/products"
-              aria-label="Volver al catálogo">
+      <button
+        mat-stroked-button
+        color="primary"
+        routerLink="/products"
+        aria-label="Volver al catálogo"
+      >
         <mat-icon aria-hidden="true">arrow_back</mat-icon>
         Volver al catálogo
       </button>
@@ -26,9 +48,14 @@
   </div>
 
   <!-- Detalle del producto -->
-  <mat-card *ngIf="!loading() && !error() && product()" class="product-detail-card">
+  <mat-card
+    *ngIf="!loading() && !error() && product()"
+    class="product-detail-card"
+  >
     <mat-card-header>
-      <h1 #titleEl tabindex="-1" class="product-title">{{ product()?.name }}</h1>
+      <h1 #titleEl tabindex="-1" class="product-title">
+        {{ product()?.name }}
+      </h1>
     </mat-card-header>
 
     <mat-card-content>
@@ -40,7 +67,8 @@
             [alt]="'Imagen del producto ' + (product()?.name || '')"
             class="product-image"
             loading="lazy"
-            (error)="onImageError($event)">
+            (error)="onImageError($event)"
+          />
         </div>
 
         <!-- Información del producto -->
@@ -50,16 +78,26 @@
               <mat-chip>{{ product()?.category }}</mat-chip>
             </mat-chip-set>
 
-            <div class="rating-section" role="img" [attr.aria-label]="'Calificación: ' + (product()?.rating | number:'1.1-1') + ' de 5 estrellas'">
+            <div
+              class="rating-section"
+              role="img"
+              [attr.aria-label]="'Calificación: ' + (product()?.rating | number:'1.1-1') + ' de 5 estrellas'"
+            >
               <div class="rating-stars">
-                <mat-icon *ngFor="let star of [1,2,3,4,5]"
-                          [class.filled]="star <= (product()?.rating || 0)"
-                          class="star-icon"
-                          aria-hidden="true">star</mat-icon>
+                <mat-icon
+                  *ngFor="let star of [1,2,3,4,5]"
+                  [class.filled]="star <= (product()?.rating || 0)"
+                  class="star-icon"
+                  aria-hidden="true"
+                  >star</mat-icon
+                >
               </div>
-              <span class="rating-value"
-                    aria-label="Calificación del producto"
-                    matTooltip="Calificación basada en opiniones de usuarios">{{ product()?.rating | number:'1.1-1' }}/5</span>
+              <span
+                class="rating-value"
+                aria-label="Calificación del producto"
+                matTooltip="Calificación basada en opiniones de usuarios"
+                >{{ product()?.rating | number:'1.1-1' }}/5</span
+              >
             </div>
           </div>
 
@@ -67,9 +105,26 @@
 
           <div class="price-section">
             <span class="price-label">Precio:</span>
-            <span class="price-value"
-                  [attr.aria-label]="'Precio: ' + (product()?.price | priceFormat:'EUR')"
-                  matTooltip="Precio final incluyendo impuestos">{{ product()?.price | priceFormat:'EUR' }}</span>
+            <span
+              class="price-value"
+              [attr.aria-label]="'Precio: ' + (product()?.price | priceFormat:currency())"
+              matTooltip="Precio final incluyendo impuestos"
+              >{{ product()?.price | priceFormat:currency() }}</span
+            >
+
+            <!-- Selector para elegir la moneda -->
+            <mat-form-field appearance="outline" class="currency-select">
+              <mat-label>Moneda</mat-label>
+              <mat-select
+                [value]="currency()"
+                (selectionChange)="setCurrency($event.value)"
+                aria-label="Seleccionar moneda"
+              >
+                <mat-option value="EUR">EUR</mat-option>
+                <mat-option value="USD">USD</mat-option>
+                <mat-option value="GBP">GBP</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
 
           <mat-divider></mat-divider>
@@ -83,7 +138,12 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button mat-raised-button color="primary" routerLink="/products" aria-label="Volver al catálogo de productos">
+      <button
+        mat-raised-button
+        color="primary"
+        routerLink="/products"
+        aria-label="Volver al catálogo de productos"
+      >
         <mat-icon aria-hidden="true">arrow_back</mat-icon>
         Volver al catálogo
       </button>

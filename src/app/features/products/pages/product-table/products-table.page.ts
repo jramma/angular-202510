@@ -28,10 +28,10 @@ import { Product } from '../../models/product.model';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './products-table.page.html',
-  styleUrls: ['./products-table.page.scss']
+  styleUrls: ['./products-table.page.scss'],
 })
 export class ProductsTablePage implements OnInit {
   private productsService = inject(ProductsService);
@@ -58,11 +58,8 @@ export class ProductsTablePage implements OnInit {
 
     // Configurar búsqueda con debounce
     this.searchSubject
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged()
-      )
-      .subscribe(query => {
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((query) => {
         this.searchQuery.set(query);
         this.currentPage = 1;
         this.loadProducts();
@@ -88,22 +85,24 @@ export class ProductsTablePage implements OnInit {
     this.loading.set(true);
     this.error.set(null);
 
-    this.productsService.list({
-      q: this.searchQuery() || undefined,
-      page: this.currentPage,
-      pageSize: this.pageSize
-    }).subscribe({
-      next: (response: Paged<Product>) => {
-        this.dataSource = response.items;
-        this.totalItems.set(response.total);
-        this.loading.set(false);
-      },
-      error: (err: any) => {
-        this.error.set('Error al cargar los productos');
-        this.loading.set(false);
-        console.error('Error loading products:', err);
-      }
-    });
+    this.productsService
+      .list({
+        q: this.searchQuery() || undefined,
+        page: this.currentPage,
+        pageSize: this.pageSize,
+      })
+      .subscribe({
+        next: (response: Paged<Product>) => {
+          this.dataSource = response.items;
+          this.totalItems.set(response.total);
+          this.loading.set(false);
+        },
+        error: (err: any) => {
+          this.error.set('Error al cargar los productos');
+          this.loading.set(false);
+          console.error('Error loading products:', err);
+        },
+      });
   }
 }
 /** TODO: crear componente standalone y construir tabla con Angular Material */

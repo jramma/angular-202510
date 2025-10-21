@@ -3,7 +3,11 @@ import { Injectable, inject } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
-import { IProductsService, Paged, ProductsListOptions } from '../interfaces/products.service.interface';
+import {
+  IProductsService,
+  Paged,
+  ProductsListOptions,
+} from '../interfaces/products.service.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService implements IProductsService {
